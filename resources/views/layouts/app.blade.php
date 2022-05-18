@@ -8,7 +8,7 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <!-- Favicon-->
@@ -58,11 +58,11 @@
                                     </li>
                                 @endif
                             @else
-                            <button class="btn btn-outline-dark" type="submit">
+                            <a class="btn btn-outline-dark" href="/cart">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                            </button>
+                            </a>
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
