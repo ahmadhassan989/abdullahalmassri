@@ -30,7 +30,7 @@
         </a>
       </div>
       <div class="col mb-5">
-        <div class="card h-100">
+        <a class="card h-100" href="/products/asdfasdf">
           <!-- Sale badge-->
           <div
             class="badge bg-dark text-white position-absolute"
@@ -68,7 +68,7 @@
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
             </div>
           </div>
-        </div>
+        </a>
       </div>
       <div class="col mb-5">
         <div class="card h-100">

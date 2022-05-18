@@ -38311,25 +38311,32 @@ var render = function () {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c(
-              "div",
-              {
-                staticClass: "badge bg-dark text-white position-absolute",
-                staticStyle: { top: "0.5rem", right: "0.5rem" },
-              },
-              [_vm._v("\n          Sale\n        ")]
-            ),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/01.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-          ]),
+          _c(
+            "a",
+            {
+              staticClass: "card h-100",
+              attrs: { href: "/products/asdfasdf" },
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "badge bg-dark text-white position-absolute",
+                  staticStyle: { top: "0.5rem", right: "0.5rem" },
+                },
+                [_vm._v("\n          Sale\n        ")]
+              ),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: { src: "/images/siteImages/01.jpg", alt: "..." },
+              }),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+            ]
+          ),
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col mb-5" }, [
