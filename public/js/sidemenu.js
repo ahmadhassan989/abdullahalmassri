@@ -35,10 +35,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
     linkColor.forEach(l => l.addEventListener('click', colorLink))
 
     // Your code to run since DOM is loaded and ready
-}); // Pop-up    
-$(".Click-here").on('click', function() {
-    $(".custom-model-main").addClass('model-open');
-});
-$(".close-btn, .bg-overlay").click(function() {
-    $(".custom-model-main").removeClass('model-open');
 });

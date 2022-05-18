@@ -5,10 +5,13 @@ namespace App\Http\Controllers\AdminControllers;
 use App\Http\Controllers\Controller;
 use App\Models\MainCategory;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\Unit;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 class ProductController extends Controller
 {
@@ -19,7 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(15);
+        $products = Product::all();
         return view('admin.products.index',compact(['products']));
     }
 
@@ -44,30 +47,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+      
         
-        // $this->validate($request, [
-        //     'main_category' => 'required' ,
-        //     'sub_category' => 'required' ,
-        //     'product_name' => 'required' ,
-        //     'price' => 'required' ,
-        //     'product_unit' => 'required' ,
-        //     'product_photo' => 'required' ,
-        //     'product_description' => 'required' ,   
-        // ]);
 
-        
-    // product slug
         $product_slug = Str::slug($request->input('product_name',Str::random(6)));    // Product barcode
         $product_barcode = Str::random(10);
 
-        $category_img=$request->file('product_img');
-        if($category_img != null){
-            $fileName = time().$category_img->getClientOriginalName();
-            $category_img->move('images/categoriesImages/', $fileName);
-            $uploadImage = 'images/categoriesImages/'.$fileName; 
-    
-        }
+            
    
+        // // }
+
         $product = new Product([
             'main_category_id'=>$request->input('main_category'),
             'sub_category_id'=>$request->input('sub_category'),
@@ -77,10 +66,25 @@ class ProductController extends Controller
             'sku'=>$product_barcode,
             'product_unit_id'=>$request->input('product_unit'),
             'product_description'=>$request->input('product_description'),
-            'img_url'=>$uploadImage,
         ]);
         $product->save();
-        return redirect('/product')->with('success', 'Action has been done successfully!');
+
+        $imgs=$request->file('imgs');
+        $count = 0;
+        foreach($imgs as $img){
+            $destination = 'storage/products/'.$product->main_category_id;
+            $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
+            $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
+
+            $img->move($destination, $fileName);
+            $img_prod= new ProductImage([
+                'product_id' => $product->id,
+                'img_url' => $path,
+            ]);
+            $img_prod->save();
+            $count++;
+            }
+        return redirect('/admin/product')->with('success', 'Action has been done successfully!');
     
 }
 
@@ -104,13 +108,15 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($product_slug)
+    
     {
         $product = Product::where('product_slug',$product_slug)->first();
         // dd($product);
         $productMainCategory = MainCategory::with('subcategories')->get();
-        $unit = Unit::get();
+        $units = Unit::get();
+ 
         
-        return view('admin.products.show', compact(['product', 'productMainCategory', 'unit']));
+        return view('admin.products.show', compact(['product', 'productMainCategory', 'units']));
     }
 
     /**
@@ -128,18 +134,44 @@ class ProductController extends Controller
            // Product barcode
             $product_barcode = Str::random(10);
        
-        Product::where('product_slug',$product_slug)
+            Product::where('product_slug',$product_slug)
             ->update([
                 'main_category_id'=>$request->input('main_category'),
                 'sub_category_id'=>$request->input('sub_category'),
                 'product_name'=>$request->input('product_name'),
                 'product_slug'=> $product_slug,
                 'price'=>$request->input('price'),
-                'product_barcode'=>$product_barcode,
+                'sku'=>$product_barcode,
                 'product_unit_id'=>$request->input('product_unit'),
                 'product_description'=>$request->input('product_description'),
+                'status' =>$request->input('status'),
             ]);
-            return redirect('/product')->with('success', 'Action has been done successfully!');
+            $product = Product::where('product_slug',$product_slug)->first();
+            $imgs=$request->file('imgs');
+            $count = 0;
+            if($imgs !=null){
+            foreach($imgs as $img){
+                $destination = 'storage/products/'.$product->main_category_id;
+                $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
+                $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
+    
+                $img->move($destination, $fileName);
+                $img_prod = ProductImage::create([
+                    'product_id' =>$product->id,
+                    'img_url' => $path,
+                ]);
+                $img_prod->save();
+                $count++;
+                }
+            }
+
+            // update old pics
+            // s
+            // 
+            // 
+            // 
+             
+            return redirect('/admin/product')->with('success', 'Action has been done successfully!');
 
 
     }
@@ -152,9 +184,14 @@ class ProductController extends Controller
      */
     public function destroy($product_slug)
     {
-        Product::where('product_slug',$product_slug)->delete();
-        return redirect('/product')->with('success', 'Action has been done successfully!');
+        $delete_prod = Product::where('product_slug',$product_slug)->first();
+      
+        $delete_prod->productimgs()->delete();
+        $delete_prod = Product::where('product_slug',$product_slug)->delete();
+
+        return redirect('/admin/product')->with('success', 'Action has been done successfully!');
 
     }
+
 
 }

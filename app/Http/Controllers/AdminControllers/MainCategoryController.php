@@ -44,17 +44,30 @@ class MainCategoryController extends Controller
             'category_description' => 'required',
         ]);
 
-        $category = new MainCategory;
-        $category->title = $request->category_name;
+       
+       
         $category_img=$request->file('category_img');
-        if ($category_img != null){
-            $fileName = time().$category_img->getClientOriginalName();
-            $category_img->move('images/categoriesImages/', $fileName);
-            $uploadImage = 'images/categoriesImages/'.$fileName; 
-            $category->image = $uploadImage;}
-        $category->description = $request->category_description;
-        $category->save();
-        return redirect('/maincategory')->with('success', 'Action has been done successfully!');
+        if($category_img != null){
+            $destination = 'storage/maincategories/';
+            $fileName = $request->category_name.$category_img->getClientOriginalExtension();
+            $path = $category_img->storeAs('maincategories/', $fileName);
+            $category_img->move($destination, $fileName);
+            
+            MainCategory::create([
+                'title' => $request->category_name,   
+                'description' => $request->category_description,  
+                'image' => $path,
+                  ]);
+            }
+        else{
+            MainCategory::create([
+            'title' => $request->category_name,   
+            'description' => $request->category_description,  
+            
+          ]);}
+        
+       
+        return redirect('/admin/maincategory')->with('success', 'Action has been done successfully!');
      
     
     }
@@ -95,13 +108,15 @@ class MainCategoryController extends Controller
 
         $category_img=$request->file('category_img');
             if($category_img != null){
-                $fileName = time().$category_img->getClientOriginalName();
-                $category_img->move('images/categoriesImages/', $fileName);
-                $uploadImage = 'images/categoriesImages/'.$fileName; 
+                $destination = 'storage/maincategories/';
+                $fileName = $request->category_name.$category_img->getClientOriginalExtension();
+                $path = $category_img->storeAs('maincategories/', $fileName);
+                $category_img->move($destination, $fileName);
+                
                 MainCategory::find($id)->update([
                     'title' => $request->category_name,   
                     'description' => $request->category_description,  
-                    'image' => $uploadImage,
+                    'image' => $path,
                       ]);
                 }
             else{
@@ -111,7 +126,7 @@ class MainCategoryController extends Controller
                 
               ]);
             }
-            return redirect('/maincategory')->with('success', 'Action has been done successfully!');
+            return redirect('/admin/maincategory')->with('success', 'Action has been done successfully!');
 
     }
 
@@ -123,8 +138,11 @@ class MainCategoryController extends Controller
      */
     public function destroy($id)
     {
-        MainCategory::destroy($id);
-        return redirect('/maincategory')->with('success', 'Action has been done successfully!');
+        $main_cat = MainCategory::where('id' , $id)->first();
+        $main_cat->subcategories()->delete();
+        $main_cat->products()->delete();
+        $main_cat->destroy($id);
+        return redirect('/admin/maincategory')->with('success', 'Action has been done successfully!');
 
     }
 }

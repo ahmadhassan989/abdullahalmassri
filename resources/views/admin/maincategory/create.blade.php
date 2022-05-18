@@ -1,4 +1,5 @@
-@extends('layouts.admin.sidebar')
+@extends('layouts.app')
+
 
 <div class="page-content" style='margin-top:100px'>
         <div class="content">
@@ -7,7 +8,7 @@
             </div>
             <!-- Add and delete form  -->
             <div class="page=form">
-                <!-- <a href="{{route('maincategory.store')}}">qqqqq</a> -->
+               
                 <fieldset class="fieldset">
                     
                     <legend>

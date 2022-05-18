@@ -1,11 +1,10 @@
-@extends('layouts.admin.sidebar')
+@extends('layouts.app')
 <style>
     .btn{
         float: right;
     }
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+
  <div class="page-content" style='margin-top:100px'>
         <div class="content">
             <div class="page-title">
@@ -33,8 +32,6 @@
 							</div>
 							<select class="form-control status-dropdown">
 								<option value="">All</option>
-								<option value="DRF">Draft</option>
-								<option value="PCH">Pending Review</option>
 								
 							</select>
 						</div>
@@ -111,42 +108,4 @@
         </div>
     </div>
 		</div>
-        
-		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-        <script>
-            $(document).ready(function() {
-    dataTable = $("#example").DataTable({
-      "columnDefs": [
-            {
-            
-                "visible": false
-            }
-        ]
-      
-    });
-  
 
-  
-    $('.filter-checkbox').on('change', function(e){
-      var searchTerms = []
-      $.each($('.filter-checkbox'), function(i,elem){
-        if($(elem).prop('checked')){
-          searchTerms.push("^" + $(this).val() + "$")
-        }
-      })
-      dataTable.column(1).search(searchTerms.join('|'), true, false, true).draw();
-    });
-  
-    // $('.status-dropdown').on('change', function(e){
-    //   var status = $(this).val();
-    //   $('.status-dropdown').val(status)
-    //   console.log(status)
-    //   //dataTable.column(6).search('\\s' + status + '\\s', true, false, true).draw();
-    //   dataTable.column(7).search(status).draw();
-    // })
-});
-        </script>
-	</body>
-</html>

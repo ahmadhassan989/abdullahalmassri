@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Unit;
+use App\User;
 use Illuminate\Http\Request;
 
-class UnitController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = Unit::get();
-        return view('admin.units.index', compact(['units']));
+        $users=User::where('role','user')->get();
+        return view('admin.users.index',compact(['users']));
+   
     }
 
     /**
@@ -26,7 +27,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('admin.units.create');
+        
     }
 
     /**
@@ -37,12 +38,7 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        $unit = new Unit([
-            'unit' => $request->unit,
-        ]);
-        $unit->save();
-        return redirect('/admin/unit')->with('success', 'Action has been done successfully!');
-
+        //
     }
 
     /**
@@ -53,7 +49,8 @@ class UnitController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.show',compact(['user']));
     }
 
     /**
@@ -64,12 +61,7 @@ class UnitController extends Controller
      */
     public function edit($id)
     {
-        // Info unit id =$id 
-        $unit = Unit::find($id);
-      
-        // view show
-        return view('admin.units.show', compact(['unit']));
-
+        //
     }
 
     /**
@@ -81,12 +73,8 @@ class UnitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return($request);
-         Unit::where('id' ,$id)->update([
-            'unit' => $request->unit_name,
-        ]);
-        return redirect('/admin/unit')->with('success', 'Action has been done successfully!');
-
+        User::where('id',$id)->update(['status' => $request->status]);
+        return redirect()->back();
     }
 
     /**
@@ -97,7 +85,6 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        Unit::destroy($id);
-        return redirect('/admin/unit')->with('success', 'Action has been done successfully!');
+        //
     }
 }

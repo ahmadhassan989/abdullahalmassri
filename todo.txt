@@ -1,0 +1,18 @@
+// save Product images
+// promotion code modules
+        --> relation with orders => one order has one code
+                                => one code has many orders. (one to many ) 
+        --> relation with users => one user has many promocode.
+                                => one promocode has many users.
+                                => same user can use the code once.
+
+
+// boxes: ->product => product unit number 
+          -> total price 
+          one box contains many products.
+          one product can bb in multi boxes 
+          ==> many to many 
+          ==> 
+          
+
+

@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
         'description' => $request->category_description,
         ]);
         $subCategory->save();
-        return redirect('/subcategory')->with('success', 'Action has been done successfully!');
+        return redirect('/admin/subcategory')->with('success', 'Action has been done successfully!');
      
     
     }
@@ -99,7 +99,7 @@ class SubCategoryController extends Controller
                 'main_category_id'=>$request->main_category 
                  ]);
  
-            return redirect('/subcategory')->with('success', 'Action has been done successfully!');
+            return redirect('/admin/subcategory')->with('success', 'Action has been done successfully!');
 
     }
 
@@ -111,8 +111,10 @@ class SubCategoryController extends Controller
      */
     public function destroy($id)
     {
-        SubCategory::destroy($id);
-        return redirect('/subcategory')->with('success', 'Action has been done successfully!');
+        $sub_cat = SubCategory::where('id',$id)->first();
+        $sub_cat->products()->delete();
+        $sub_cat->destroy($id);
+        return redirect('/admin/subcategory')->with('success', 'Action has been done successfully!');
 
     }
 }

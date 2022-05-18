@@ -28,22 +28,22 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','IsAdmin']], function(){
-    Route::get('/','AdminController@dashboard');
+    Route::get('/','AdminController@dashboard')->name('admin.index');
+    Route::resource('maincategory' , 'AdminControllers\MainCategoryController');
+    Route::resource('subcategory' , 'AdminControllers\SubCategoryController');
+    Route::resource('product' , 'AdminControllers\ProductController');
+  
+    Route::resource('unit' , 'AdminControllers\UnitController');
+    Route::get('api/subCategories', function(Request $request) {
+        $input = $request->input('option');
+        if($input == '0'){
+        return $input;
+        }
+        $maincategory = MainCategory::find($input);
+        $subCategory = $maincategory->subcategories();
+        return Response::json($subCategory->get(['id', 'title']));
+    });
+    Route::resource('promocodes','AdminControllers\PromocodeController');
+    Route::resource('users','AdminControllers\UserController');
 });
-
-Route::resource('maincategory' , 'AdminControllers\MainCategoryController');
-Route::resource('subcategory' , 'AdminControllers\SubCategoryController');
-Route::resource('product' , 'AdminControllers\ProductController');
-Route::resource('unit' , 'AdminControllers\UnitController');
-Route::get('api/subCategories', function(Request $request) {
-    $input = $request->input('option');
-    if($input == '0'){
-       return $input;
-    }
-    $maincategory = MainCategory::find($input);
-    $subCategory = $maincategory->subcategories();
-    return Response::json($subCategory->get(['id', 'title']));
-});
-
-
 

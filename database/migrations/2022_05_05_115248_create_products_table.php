@@ -20,12 +20,11 @@ class CreateProductsTable extends Migration
             $table->integer('product_unit_id')->unsigned();
             $table->string('product_name');
             $table->string('product_slug')->unique();
+            $table->boolean('status')->default(true);
             $table->float('price');
             $table->string('sku')->unique(); 
-            $table->string('product_description');
-            $table->string('img_url');
+            $table->string('product_description')->nullable();
             $table->timestamps();
-            $table->softDeletes('deleted_at');
         });
     }
 

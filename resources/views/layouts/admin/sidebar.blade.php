@@ -14,50 +14,36 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 <link rel="stylesheet" href="{{ asset('css/sidemenu.css')}}">
+<link rel="stylesheet" href="{{ asset('css/all.min.css')}}">
 
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-<link rel="stylesheet" href="{{ asset('css/sidemenu.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
-<!-- MDB -->
-<link  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <body id="body-pd">
     <header class="header" id="header">
-        <div class="header_toggle"><i  class='bx bx-menu' id="header-toggle"></i> <i class="fa-solid fa-bell" style="margin:10px"></i></div>
+        <div class="header_toggle"><i  class='bx bx-menu' id="header-toggle"></i> <i class="fas fa-bell" style="margin:10px"></i></div>
        
         <div class="header_img"> <img src="" alt="profile logo"> </div>
     </header>
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="#" class="nav_logo nav_link active"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_logo-name">Dashboard</span> </a>
+                <a href="{{route('admin.index')}}" class="nav_logo nav_link active"><i class='bx bx-grid-alt nav_icon'></i> <span class="nav_logo-name">Dashboard</span> </a>
                 <div class="nav_list"> 
-                    <a href="#" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a> 
-                    <a href="#" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a> 
-                    <a href="{{route('product.index')}}" class="nav_link"> <i class="fa-solid fa-store"></i> <span class="nav_name">Store</span> </a> 
-                    <a href="#" class="nav_link"> <i class="fa-solid fa-bag-shopping"></i> <span class="nav_name">Orders</span> </a> 
-                    <a href="{{route('maincategory.index')}}" class="nav_link"> <span class="nav_name">Main Category</span></a> 
-                    <a href="{{route('subcategory.index')}}" class="nav_link"> <span class="nav_name">SubCategory</span></a> 
-                    <a href="{{route('unit.index')}}" class="nav_link"> <span class="nav_name">Units</span></a> 
-               
+                    <a href="{{route('users.index')}}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a> 
+                    <a href="{{route('product.index')}}" class="nav_link"> <i class="fas fa-store"></i> <span class="nav_name">Store</span> </a> 
+                    <a href="#" class="nav_link"> <i class="fas fa-shopping-bag"></i> <span class="nav_name">Orders</span> </a> 
+                    <a href="{{route('maincategory.index')}}" class="nav_link"> <i class="fas fa-layer-group"></i><span class="nav_name">Main Category</span></a> 
+                    <a href="{{route('subcategory.index')}}" class="nav_link"> <i class="fas fa-cubes"></i> <span class="nav_name">SubCategory</span></a> 
+                    <a href="{{route('unit.index')}}" class="nav_link"> <i class="fas fa-balance-scale-right"></i> <span class="nav_name">Units</span></a> 
+                    <a href="{{route('promocodes.index')}}" class="nav_link"><i class="fas fa-percent"></i> <span class="nav_name">Promocodes</span></a> 
+
                     
                 </div>
             </div> 
-            <a href="#" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" >
+                    @csrf
+                                            
+                  <a href="{{ route('logout') }}" class="nav_link"> <button style="background-color:transparent; border:none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </button> </a>
+                </form>
         </nav>
     </div>
-<script src="https://kit.fontawesome.com/5f90913cde.js" crossorigin="anonymous"></script>   
-
-<!-- MDB -->
-@extends('layouts.admin.scripts')
-<script src="{{ asset('js/sidemenu.js')}}"></script>
