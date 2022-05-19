@@ -25,4 +25,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function product($name)
+    {
+        return view('portal.product');
+    }
+
+    public function cart()
+    {
+        return view('portal.cart');
+    }
 }

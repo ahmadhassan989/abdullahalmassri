@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css.map')}}">
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <!-- Favicon-->
@@ -38,8 +38,9 @@
     
 
     <div id="app">
+        @auth
     @if(Auth::user()->role == 'admin')
-    @include('layouts.admin.sidebar')
+        @include('layouts.admin.sidebar')
     @else
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
@@ -73,35 +74,33 @@
                                     </li>
                                 @endif
                             @else
-                               
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }}
-                                        </a>
+                            <a class="btn btn-outline-dark" href="/cart">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </a>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ Auth::user()->name }}
+                                    </a>
 
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                                <button class="dropdown-item" href="{{ route('logout') }}"
-                                                {{-- onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();
-                                                            console.log('xxxxx');
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                            <button class="dropdown-item" href="{{ route('logout') }}"
+                                            {{-- onclick="event.preventDefault();
+                                                          document.getElementById('logout-form').submit();
+                                                         console.log('xxxxx');
 
-                                                            " --}}
-                                                            >
-                                                {{ __('Logout') }}
-                                            </button>
-                                            </form>
-                                        </div>
-                                    </li>
-                                    
+                                                          " --}}
+                                                          >
+                                             {{ __('Logout') }}
+                                         </button>
+                                        </form>
+                                    </div>
+                                </li>
                             @endguest
                         </ul>
                     </form>
@@ -109,6 +108,7 @@
             </div>
         </nav>
         @endif
+        @endauth
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
 

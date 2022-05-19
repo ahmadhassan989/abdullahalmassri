@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Response;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('products/{slug}', 'HomeController@product');
+Route::get('cart', 'HomeController@cart');
 
 Auth::routes();
 
