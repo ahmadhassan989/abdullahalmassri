@@ -115,7 +115,7 @@ class MainCategoryController extends Controller
                 
                 MainCategory::find($id)->update([
                     'title' => $request->category_name,   
-                    'description' => $request->category_description,  
+                    'description' => $request->category_description, 
                     'image' => $path,
                       ]);
                 }

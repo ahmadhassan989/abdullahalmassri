@@ -18,11 +18,13 @@ use Illuminate\Support\Facades\Response;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 Route::get('products/{slug}', 'HomeController@product');
+Route::post('/product/add-to-cart', 'HomeController@addToCart');
 Route::get('cart', 'HomeController@cart');
+
+// product by caterories(sub,main)
+Route::get('product/all','HomeController@product_by_category');
 
 Auth::routes();
 
@@ -47,5 +49,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','IsAdmin']], function
     });
     Route::resource('promocodes','AdminControllers\PromocodeController');
     Route::resource('users','AdminControllers\UserController');
+    Route::resource('messages','AdminControllers\ContactUsController');
+    Route::resource('imageproduct','AdminControllers\ImageProductController');
 });
 

@@ -121,12 +121,11 @@
                     </div>
                 </form>
             </fieldset>
-
         </div>
     </div>
 </div>
 
-@section('scripts')
+
 <script src="{{ asset('js/jquery-3.2.1.js')}}"></script>
 <script type="text/javascript">
     (function($, window, document) {
@@ -184,4 +183,3 @@ $(document).on("change", '#main_category', function() {
 });
 </script>
 
-@endsection

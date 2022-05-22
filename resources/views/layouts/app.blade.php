@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/jquery-ui.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/select2.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css.map')}}">
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
@@ -38,10 +37,8 @@
     
 
     <div id="app">
-        @auth
-    @if(Auth::user()->role == 'admin')
-        @include('layouts.admin.sidebar')
-    @else
+  
+  
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#!">The Meat Master</a>
@@ -107,8 +104,7 @@
                 </div>
             </div>
         </nav>
-        @endif
-        @endauth
+      
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
 
@@ -128,9 +124,7 @@
                                 </li>
                             @endif
                         @else
-                            @if(Auth::user()->role == 'admin')
-                                @include('layouts.admin.sidebar')
-                            @else
+                            
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
@@ -148,7 +142,7 @@
                                         </form>
                                     </div>
                                 </li>
-                            @endif
+                           
                         @endguest
                     </ul>
                 </div>
@@ -166,7 +160,7 @@
         <!-- Bootstrap core JS-->
         <!-- Core theme JS-->
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> --}}
-@extends('layouts.admin.scripts')
+
     </body>
 
         </html>

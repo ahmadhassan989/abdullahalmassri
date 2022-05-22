@@ -12,7 +12,7 @@
     </header>
     <!-- Section-->
     <section class="py-5">
-        <products></products>
+        <products :products="{{$products}}"></products>
 
     </section>
     <!-- Footer-->

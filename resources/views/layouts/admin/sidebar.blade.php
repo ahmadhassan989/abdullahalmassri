@@ -35,6 +35,8 @@
                     <a href="{{route('subcategory.index')}}" class="nav_link"> <i class="fas fa-cubes"></i> <span class="nav_name">SubCategory</span></a> 
                     <a href="{{route('unit.index')}}" class="nav_link"> <i class="fas fa-balance-scale-right"></i> <span class="nav_name">Units</span></a> 
                     <a href="{{route('promocodes.index')}}" class="nav_link"><i class="fas fa-percent"></i> <span class="nav_name">Promocodes</span></a> 
+                    <a href="{{route('messages.index')}}" class="nav_link"> <i class="fas fa-comments"></i> <span class="nav_name">Messages</span></a> 
+
 
                     
                 </div>

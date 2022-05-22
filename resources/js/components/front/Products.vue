@@ -8,44 +8,45 @@
         justify-content-center
       "
     >
-      <div class="col mb-5" @click="openProduct">
-        <a class="card h-100" href="/products/asdfasdf">
+      <div v-for="(item, index) in products" :key="index" class="col mb-5" @click="openProduct">
+
+        <a class="card h-100" >
           <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/02.jpg'" alt="..." />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder">Fancy Product</h5>
+
+              <h5 class="fw-bolder">{{item.product_name}}</h5>
               <!-- Product price-->
-              $40.00 - $80.00
+              ${{item.price }}/ {{item.unit.unit}}
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-              <a class="btn btn-outline-dark mt-auto" href="#">View options</a>
+              <a class="btn btn-outline-dark mt-auto" @click="addToCart(index)">Add To Cart</a>
             </div>
           </div>
         </a>
       </div>
-      <div class="col mb-5">
+     <!-- <div class="col mb-5">
         <a class="card h-100" href="/products/asdfasdf">
-          <!-- Sale badge-->
+          
           <div
             class="badge bg-dark text-white position-absolute"
             style="top: 0.5rem; right: 0.5rem"
           >
             Sale
           </div>
-          <!-- Product image-->
+          
           <img class="card-img-top" :src="'/images/siteImages/01.jpg'" alt="..." />
-          <!-- Product details-->
+         
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
+              
               <h5 class="fw-bolder">Special Item</h5>
-              <!-- Product reviews-->
+              
               <div
                 class="d-flex justify-content-center small text-warning mb-2"
               >
@@ -55,14 +56,12 @@
                 <div class="bi-star-fill"></div>
                 <div class="bi-star-fill"></div>
               </div>
-              <!-- Product price-->
               <span class="text-muted text-decoration-line-through"
                 >$20.00</span
               >
               $18.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
@@ -72,28 +71,22 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Sale badge-->
           <div
             class="badge bg-dark text-white position-absolute"
             style="top: 0.5rem; right: 0.5rem"
           >
             Sale
           </div>
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/03.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
               <h5 class="fw-bolder">Sale Item</h5>
-              <!-- Product price-->
               <span class="text-muted text-decoration-line-through"
                 >$50.00</span
               >
               $25.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
@@ -103,14 +96,10 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/04.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
               <h5 class="fw-bolder">Popular Item</h5>
-              <!-- Product reviews-->
               <div
                 class="d-flex justify-content-center small text-warning mb-2"
               >
@@ -120,11 +109,9 @@
                 <div class="bi-star-fill"></div>
                 <div class="bi-star-fill"></div>
               </div>
-              <!-- Product price-->
               $40.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
@@ -134,28 +121,22 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Sale badge-->
           <div
             class="badge bg-dark text-white position-absolute"
             style="top: 0.5rem; right: 0.5rem"
           >
             Sale
           </div>
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/05.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
               <h5 class="fw-bolder">Sale Item</h5>
-              <!-- Product price-->
               <span class="text-muted text-decoration-line-through"
                 >$50.00</span
               >
               $25.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
@@ -165,18 +146,14 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/06.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
+
               <h5 class="fw-bolder">Fancy Product</h5>
-              <!-- Product price-->
               $120.00 - $280.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">View options</a>
@@ -186,21 +163,17 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Sale badge-->
           <div
             class="badge bg-dark text-white position-absolute"
             style="top: 0.5rem; right: 0.5rem"
           >
             Sale
           </div>
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/07.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
+
               <h5 class="fw-bolder">Special Item</h5>
-              <!-- Product reviews-->
               <div
                 class="d-flex justify-content-center small text-warning mb-2"
               >
@@ -210,14 +183,12 @@
                 <div class="bi-star-fill"></div>
                 <div class="bi-star-fill"></div>
               </div>
-              <!-- Product price-->
               <span class="text-muted text-decoration-line-through"
                 >$20.00</span
               >
               $18.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
@@ -227,14 +198,11 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Product image-->
           <img class="card-img-top" :src="'/images/siteImages/08.jpg'" alt="..." />
-          <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-              <!-- Product name-->
+
               <h5 class="fw-bolder">Popular Item</h5>
-              <!-- Product reviews-->
               <div
                 class="d-flex justify-content-center small text-warning mb-2"
               >
@@ -244,18 +212,16 @@
                 <div class="bi-star-fill"></div>
                 <div class="bi-star-fill"></div>
               </div>
-              <!-- Product price-->
               $40.00
             </div>
           </div>
-          <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
             </div>
-          </div>
+           </div> 
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -265,6 +231,7 @@ export default {
   // props: ['paymentData'],
   // emits: ['clearPaymentData'],
   data: () => ({}),
+  props: ['products'],
   methods: {
     openProduct() {
       console.log("xxxxxxxxxxxxxx");
@@ -272,10 +239,21 @@ export default {
             .get("/products/product-name")
             .then((response) => (this.info = response));
     },
+    addToCart(i){
+      console.log(this.products[i]);
+      axios
+            .post("/product/add-to-cart",this.products[i])
+            .then((response) => (this.info = response));
+    }
   },
-  mounted() {},
+  mounted() {
+    console.log(this.products)
+  },
 };
+
+// href="/products/asdfasdf"
 </script>
 
 <style scoped>
 </style>
+

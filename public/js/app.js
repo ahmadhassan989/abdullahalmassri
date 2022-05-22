@@ -2341,46 +2341,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // props: ['paymentData'],
   // emits: ['clearPaymentData'],
   data: function data() {
     return {};
   },
+  props: ['products'],
   methods: {
     openProduct: function openProduct() {
       var _this = this;
@@ -2389,10 +2356,20 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/products/product-name").then(function (response) {
         return _this.info = response;
       });
+    },
+    addToCart: function addToCart(i) {
+      var _this2 = this;
+
+      console.log(this.products[i]);
+      axios.post("/product/add-to-cart", this.products[i]).then(function (response) {
+        return _this2.info = response;
+      });
     }
   },
-  mounted: function mounted() {}
-});
+  mounted: function mounted() {
+    console.log(this.products);
+  }
+}); // href="/products/asdfasdf"
 
 /***/ }),
 
@@ -38289,518 +38266,69 @@ var render = function () {
         staticClass:
           "\n      row\n      gx-4 gx-lg-5\n      row-cols-2 row-cols-md-3 row-cols-xl-4\n      justify-content-center\n    ",
       },
-      [
-        _c("div", { staticClass: "col mb-5", on: { click: _vm.openProduct } }, [
-          _c(
-            "a",
-            {
-              staticClass: "card h-100",
-              attrs: { href: "/products/asdfasdf" },
-            },
-            [
+      _vm._l(_vm.products, function (item, index) {
+        return _c(
+          "div",
+          {
+            key: index,
+            staticClass: "col mb-5",
+            on: { click: _vm.openProduct },
+          },
+          [
+            _c("a", { staticClass: "card h-100" }, [
               _c("img", {
                 staticClass: "card-img-top",
                 attrs: { src: "/images/siteImages/02.jpg", alt: "..." },
               }),
               _vm._v(" "),
-              _vm._m(0),
+              _c("div", { staticClass: "card-body p-4" }, [
+                _c("div", { staticClass: "text-center" }, [
+                  _c("h5", { staticClass: "fw-bolder" }, [
+                    _vm._v(_vm._s(item.product_name)),
+                  ]),
+                  _vm._v(" "),
+                  _vm._v(
+                    "\n            $" +
+                      _vm._s(item.price) +
+                      "/ " +
+                      _vm._s(item.unit.unit) +
+                      "\n          "
+                  ),
+                ]),
+              ]),
               _vm._v(" "),
-              _vm._m(1),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c(
-            "a",
-            {
-              staticClass: "card h-100",
-              attrs: { href: "/products/asdfasdf" },
-            },
-            [
               _c(
                 "div",
                 {
-                  staticClass: "badge bg-dark text-white position-absolute",
-                  staticStyle: { top: "0.5rem", right: "0.5rem" },
+                  staticClass:
+                    "card-footer p-4 pt-0 border-top-0 bg-transparent",
                 },
-                [_vm._v("\n          Sale\n        ")]
+                [
+                  _c("div", { staticClass: "text-center" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-outline-dark mt-auto",
+                        on: {
+                          click: function ($event) {
+                            return _vm.addToCart(index)
+                          },
+                        },
+                      },
+                      [_vm._v("Add To Cart")]
+                    ),
+                  ]),
+                ]
               ),
-              _vm._v(" "),
-              _c("img", {
-                staticClass: "card-img-top",
-                attrs: { src: "/images/siteImages/01.jpg", alt: "..." },
-              }),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
-              _vm._m(3),
-            ]
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c(
-              "div",
-              {
-                staticClass: "badge bg-dark text-white position-absolute",
-                staticStyle: { top: "0.5rem", right: "0.5rem" },
-              },
-              [_vm._v("\n          Sale\n        ")]
-            ),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/03.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(4),
-            _vm._v(" "),
-            _vm._m(5),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/04.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(6),
-            _vm._v(" "),
-            _vm._m(7),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c(
-              "div",
-              {
-                staticClass: "badge bg-dark text-white position-absolute",
-                staticStyle: { top: "0.5rem", right: "0.5rem" },
-              },
-              [_vm._v("\n          Sale\n        ")]
-            ),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/05.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(8),
-            _vm._v(" "),
-            _vm._m(9),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/06.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(10),
-            _vm._v(" "),
-            _vm._m(11),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c(
-              "div",
-              {
-                staticClass: "badge bg-dark text-white position-absolute",
-                staticStyle: { top: "0.5rem", right: "0.5rem" },
-              },
-              [_vm._v("\n          Sale\n        ")]
-            ),
-            _vm._v(" "),
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/07.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(12),
-            _vm._v(" "),
-            _vm._m(13),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col mb-5" }, [
-          _c("div", { staticClass: "card h-100" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: { src: "/images/siteImages/08.jpg", alt: "..." },
-            }),
-            _vm._v(" "),
-            _vm._m(14),
-            _vm._v(" "),
-            _vm._m(15),
-          ]),
-        ]),
-      ]
+            ]),
+          ]
+        )
+      }),
+      0
     ),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Fancy Product")]),
-        _vm._v(" "),
-        _vm._v("\n            $40.00 - $80.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("View options")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Special Item")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex justify-content-center small text-warning mb-2",
-          },
-          [
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-          ]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "text-muted text-decoration-line-through" }, [
-          _vm._v("$20.00"),
-        ]),
-        _vm._v("\n            $18.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Sale Item")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "text-muted text-decoration-line-through" }, [
-          _vm._v("$50.00"),
-        ]),
-        _vm._v("\n            $25.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Popular Item")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex justify-content-center small text-warning mb-2",
-          },
-          [
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-          ]
-        ),
-        _vm._v(" "),
-        _vm._v("\n            $40.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Sale Item")]),
-        _vm._v(" "),
-        _c("span", { staticClass: "text-muted text-decoration-line-through" }, [
-          _vm._v("$50.00"),
-        ]),
-        _vm._v("\n            $25.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Fancy Product")]),
-        _vm._v(" "),
-        _vm._v("\n            $120.00 - $280.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("View options")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Special Item")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex justify-content-center small text-warning mb-2",
-          },
-          [
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-          ]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "text-muted text-decoration-line-through" }, [
-          _vm._v("$20.00"),
-        ]),
-        _vm._v("\n            $18.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body p-4" }, [
-      _c("div", { staticClass: "text-center" }, [
-        _c("h5", { staticClass: "fw-bolder" }, [_vm._v("Popular Item")]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex justify-content-center small text-warning mb-2",
-          },
-          [
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-            _vm._v(" "),
-            _c("div", { staticClass: "bi-star-fill" }),
-          ]
-        ),
-        _vm._v(" "),
-        _vm._v("\n            $40.00\n          "),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "card-footer p-4 pt-0 border-top-0 bg-transparent" },
-      [
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-dark mt-auto",
-              attrs: { href: "#" },
-            },
-            [_vm._v("Add to cart")]
-          ),
-        ]),
-      ]
-    )
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -51398,8 +50926,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /opt/lampp/htdocs/abdullah-almasri/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/abdullah-almasri/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /opt/lampp/htdocs/abdullahalmassri/abdullahalmassri/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/abdullahalmassri/abdullahalmassri/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

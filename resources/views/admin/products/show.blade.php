@@ -11,8 +11,9 @@
         <div style="width:50% ;margin: auto;">
             <?php ( $count = count($product->productimgs))?>
             @foreach($product->productimgs as $img)
-                   <form action=""  method="POST"
+                   <form action="{{route('imageproduct.destroy',$img->id)}}"  method="POST"
                     enctype="multipart/form-data" style="margin:15px; width:<?php echo(90/($count+1))?>%; display:inline-block">
+                    {{ csrf_field() }}
                     <input type="hidden" name="_method" value="DELETE">
    
                     <img style="width:100%;" src="{{asset('storage/'.$img->img_url)}}" alt="Product_img">
@@ -152,7 +153,8 @@
     </div>
 </div>
 
-@section('scripts')
+
+
 <script src="{{ asset('js/jquery-3.2.1.js')}}"></script>
 <script type="text/javascript">
     (function($, window, document) {
@@ -210,4 +212,3 @@ $(document).on("change", '#main_category', function() {
 });
 </script>
 
-@endsection

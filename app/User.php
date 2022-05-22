@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function contactus()
+    {
+        return $this->hasMany('App\Models\ContactUs', 'contact_us_id');
+    }
 }
