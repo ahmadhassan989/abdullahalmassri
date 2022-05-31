@@ -35,7 +35,7 @@ class ProductController extends Controller
     {
         $productMainCategory = MainCategory::with('subcategories')->get();
         $units = Unit::get();
-        
+
         return view('admin.products.create',compact(['productMainCategory', 'units']));
     }
 
@@ -47,14 +47,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-      
-        
 
         $product_slug = Str::slug($request->input('product_name',Str::random(6)));    // Product barcode
         $product_barcode = Str::random(10);
 
-            
-   
+
+
         // // }
 
         $product = new Product([
@@ -66,29 +64,46 @@ class ProductController extends Controller
             'sku'=>$product_barcode,
             'product_unit_id'=>$request->input('product_unit'),
             'product_description'=>$request->input('product_description'),
+            'img_url'=>'default.png',
         ]);
         $product->save();
 
-        $imgs=$request->file('imgs');
-        $count = 0;
-        foreach($imgs as $img){
-            $destination = 'storage/products/'.$product->main_category_id;
-            $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
-            $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
+        // $imgs=$request->file('imgs');
+        // $count = 0;
+        if(count($request->file('imgs')) > 0 ) {
 
-            $img->move($destination, $fileName);
-            $img_prod= new ProductImage([
-                'product_id' => $product->id,
-                'img_url' => $path,
-            ]);
-            $img_prod->save();
-            $count++;
+            foreach ($request->file('imgs') as $one) {
+                $image = new ProductImage();
+                $path = $one->store('/images', $image);
+                $image->img_url = $path;
+                $image->product_id = $product->id;
+                $image->save();
+                // $coverUrl = url('/storage/images/courseCoverImg/'.$image);
+
             }
+        }
+        // foreach($imgs as $img){
+        //     $destination = 'storage/products/'.$product->main_category_id;
+        //     $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
+        //     $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
+
+        //     ///////////////////
+
+
+        //     ///////////////////
+        //     // $img->move($destination, $fileName);
+        //     $img_prod= new ProductImage([
+        //         'product_id' => $product->id,
+        //         'img_url' => $path,
+        //     ]);
+        //     $img_prod->save();
+        //     $count++;
+        //     }
         return redirect('/admin/product')->with('success', 'Action has been done successfully!');
-    
+
 }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -98,7 +113,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -108,14 +123,14 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($product_slug)
-    
+
     {
         $product = Product::where('product_slug',$product_slug)->first();
         // dd($product);
         $productMainCategory = MainCategory::with('subcategories')->get();
         $units = Unit::get();
- 
-        
+
+
         return view('admin.products.show', compact(['product', 'productMainCategory', 'units']));
     }
 
@@ -128,12 +143,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, $product_slug)
     {
-        
+
            // product slug
            $product_slug = Str::slug($request->input('product_name'));
            // Product barcode
             $product_barcode = Str::random(10);
-       
+
             Product::where('product_slug',$product_slug)
             ->update([
                 'main_category_id'=>$request->input('main_category'),
@@ -154,7 +169,7 @@ class ProductController extends Controller
                 $destination = 'storage/products/'.$product->main_category_id;
                 $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
                 $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
-    
+
                 $img->move($destination, $fileName);
                 $img_prod = ProductImage::create([
                     'product_id' =>$product->id,
@@ -167,10 +182,10 @@ class ProductController extends Controller
 
             // update old pics
             // s
-            // 
-            // 
-            // 
-             
+            //
+            //
+            //
+
             return redirect('/admin/product')->with('success', 'Action has been done successfully!');
 
 
@@ -185,7 +200,7 @@ class ProductController extends Controller
     public function destroy($product_slug)
     {
         $delete_prod = Product::where('product_slug',$product_slug)->first();
-      
+
         $delete_prod->productimgs()->delete();
         $delete_prod = Product::where('product_slug',$product_slug)->delete();
 
