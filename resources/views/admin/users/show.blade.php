@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 <div class="page-content">
             <div class="content">
             <br> <br>

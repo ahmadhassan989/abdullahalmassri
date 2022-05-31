@@ -8,72 +8,59 @@
  <div class="page-content" style='margin-top:100px'>
         <div class="content">
             <div class="page-title">
-                <h4>Products</h4>
+                <h4>Boxes</h4>
             </div>
 
             <div class="action-row">
-                    <a href ="{{route('product.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+                    <a href ="{{route('boxes.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
                 </div>
 
 
             <div class="page-list">
-                <h5 class="form-group">List Of Products</h5>
+                <h5 class="form-group">List Of Boxes</h5>
                 <div class="table-responsive">
 		
 
 		<div class="container">
 			<div class="content">
-				<!-- <div class="row">
-
-					<div class="col-4">
-						<div class="btn-group submitter-group float-right">
-							<div class="input-group-prepend">
-								<div class="input-group-text">Status</div>
-							</div>
-							<select class="form-control status-dropdown">
-								<option value="">All</option>
-								
-							</select>
-						</div>
-					</div>
-				</div> -->
+				
 			</div>
 			<table id="example" class="table">
 				<thead>
 					<tr>
-                        <th>Product Name</th>
-                        <th>Product Main Category</th>
-                        <th>Product "Pric/Unit"</th>
-                        <th>Product SKU</th>
+                        <th>Box Title</th>
+                        <th>Box Description</th>
+                        <th>Box Price</th>
+                        <th>SKU</th>
                         <th class="th-actions">Actions </th>
                     </tr>
 				</thead>
 				<tbody>
 
-                @foreach($products as $product) 
+                @foreach($boxes as $box) 
                                 <tr>
                                     <td>
-                                        <span class="td-data"> {{$product->product_name}} </span>
+                                        <span class="td-data"> {{$box->title}} </span>
                                     </td>
                                     <td>
                                         <span class="td-data">
-                                            {{$product->mainCategory->title}}
+                                            {{$box->description}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="td-data">
-                                            {{$product->price}}/{{$product->unit->unit}}
+                                            $ {{$box->price}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="td-data">
-                                            {{$product->sku}}
+                                            {{$box->sku}}
                                         </span>
                                     </td>
-                                    
+                                   
                                     <td class="td-actions-group">
                                         <div class="actions">
-                                            <a href="{{route('product.edit',$product->product_slug)}}" class="table-action-btn" title="Edit">
+                                            <a href="{{route('boxes.edit',$box->id)}}" class="table-action-btn" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             
@@ -84,11 +71,11 @@
                                                         <div class="close-btn">×</div>
                                                             <div class="custom-model-wrap">
                                                                 <div class="pop-up-content-wrap">
-                                                                    <form action="{{route('product.destroy',$product->product_slug)}}" method="POST" enctype="multipart/form-data">
+                                                                    <form action="{{route('boxes.destroy',$box->id)}}" method="POST" enctype="multipart/form-data">
                                                                         {{ csrf_field() }}    
                                                                         <input name="_method" type="hidden" value="DELETE"> 
                                                                         <strong>Confirm action</strong>
-                                                                        <p>Are you sure you want to delete account?</p>                                                        
+                                                                        <p>Are you sure you want to delete Box?</p>                                                        
                                                                         <button  class="btn btn-danger">Sure</button>  
                                                                     </form>                                             
                                                                 </div>
@@ -100,7 +87,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-           
                             </tbody>
                     </table>
                 </div>

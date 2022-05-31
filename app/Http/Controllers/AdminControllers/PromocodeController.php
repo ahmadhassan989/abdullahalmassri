@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Promocode;
+use Carbon\Carbon;
 use CreatePromocodesTable;
-use Gabievi\Promocodes\Facades\Promocodes;
-use Gabievi\Promocodes\Models\Promocode;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PromocodeController extends Controller
 {
@@ -18,11 +19,9 @@ class PromocodeController extends Controller
      */
     public function index()
     {
-        $promocodes =Promocodes::all();
-
-
-
-        return view('admin.promocode.index', compact(['promocodes']));
+        $promocodes =Promocode::all();
+        // $promocodes=Promocode::with('users')->where('id' , 1)->get();
+        return view('admin.promocode.index',compact('promocodes'));
 
     }
 
@@ -44,13 +43,14 @@ class PromocodeController extends Controller
      */
     public function store(Request $request)
     {
-            Promocodes::create($amount = 1,
-                                $reward = $request->reward,
-                                $data = [],
-                                $expires_in = $request->expires_in,
-                                $quantity = $request->quantity,
-                                $is_disposable = false);
-            return redirect('/admin/promocodes')->with('success', trans('responses.success'));
+        $expires_in = Carbon::now()->addDays($request->expires_in);
+
+        Promocode::create(['code' =>  Str::random(6),
+                            'reward' => $request->reward, 
+                            'remaining_quantity' =>$request->quantity , 
+                            'total_quantity' => $request->quantity ,
+                            'expires_at' => $expires_in ]);
+            return redirect()->route('promocodes.index')->with('success', trans('responses.success'));
 
     }
 
@@ -91,9 +91,9 @@ class PromocodeController extends Controller
         ->update([
         'reward' => $request->reward,
         'expires_at' => $request->expires_in,
-        'quantity' => $request->quantity,
+        'total_quantity' => $request->quantity,
         ]);
-        return redirect('/admin/promocodes')->with('success', trans('responses.success'));
+        return redirect()->route('promocodes.index')->with('success', trans('responses.success'));
     }
 
     /**
@@ -104,6 +104,66 @@ class PromocodeController extends Controller
      */
     public function destroy($id)
     {
-    
+
     }
+
+    public function apply($code)
+    {
+        $promocode = Promocode::where('code' , $code)->first();
+        $promocode->users()->attach(auth()->id(), [
+            'promocode_id' => $promocode->id,
+            'used_at' => Carbon::now(),
+        ]);
+        dd('done');
+    }
+
+    public function checkPromocodeUsage($code)
+    {  
+        
+        if (!auth()->check()) {
+            
+           return view('auth.login');
+        }
+
+        if ($promocode = $this->check($code)) {
+
+            $promocode = Promocode::where('code',$code)->first();
+                $promocode->users()->attach(auth()->id(), [
+                    'promocode_id' => $promocode->id,
+                    'used_at' => Carbon::now(),
+                ]);
+            if (!is_null($promocode->remaining_quantity)) {
+                $promocode->remaining_quantity -= 1;
+                $promocode->save();
+            }
+            $total_price = 'total cost';
+            $reward =  $promocode->reward;
+            $price_after_discount = 'total *'.$promocode->reward;
+            return redirect()->route('portal.cart')
+                    ->with(['total_price'=>'total_price' ,
+                            'reward'=>'reward',
+                            'price_after_discount'=>'price_after_discount']);
+    }       
+
+        return redirect()->route('portal.cart')->with('message' , 'Promocode Not Valid');
+    }
+ 
+    
+            
+    
+    public function check($code)
+    {
+        
+        $promocode = Promocode::where('code',$code)->first();
+        if ($promocode === null || ($promocode->expires_at < Carbon::now()) || $promocode->users()->exists() || $promocode->remaining_quantity === 0) {
+        
+            return false;
+         
+        }
+
+        return true;
+    }
+
+
+
 }

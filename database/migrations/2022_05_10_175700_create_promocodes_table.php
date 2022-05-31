@@ -15,15 +15,13 @@ class CreatePromocodesTable extends Migration
     {
         Schema::create('promocodes', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 10)->unique();
+            $table->double('reward', 10, 2);
+            $table->integer('remaining_quantity');
+            $table->integer('total_quantity');
+            $table->timestamp('expires_at');
+            $table->timestamps();
 
-            $table->string('code', 32)->unique();
-            $table->double('reward', 10, 2)->nullable();
-            $table->integer('quantity')->nullable();
-
-            $table->text('data')->nullable();
-
-            $table->boolean('is_disposable')->default(false);
-            $table->timestamp('expires_at')->nullable();
         });
 
         Schema::create('promocode_user', function (Blueprint $table) {

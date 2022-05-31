@@ -81,6 +81,7 @@ class ProductController extends Controller
                 // $coverUrl = url('/storage/images/courseCoverImg/'.$image);
 
             }
+<<<<<<< HEAD
         }
         // foreach($imgs as $img){
         //     $destination = 'storage/products/'.$product->main_category_id;
@@ -101,6 +102,10 @@ class ProductController extends Controller
         //     }
         return redirect('/admin/product')->with('success', 'Action has been done successfully!');
 
+=======
+        return redirect('/admin/product');
+    
+>>>>>>> 5f69f542712a1c995a3e035884d7c7bf6fe2a306
 }
 
 

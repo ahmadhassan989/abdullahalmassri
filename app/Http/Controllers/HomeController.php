@@ -50,7 +50,7 @@ class HomeController extends Controller
        
        if(session()->get('products') == []){
         session()->put('products',[]);
-        session()->put('products',$request->all());
+        session()->put($request->all(),'products');
 
         // $products=[];
         //    array_push($products,$request->all());
@@ -59,7 +59,7 @@ class HomeController extends Controller
        else{
         
         // array_push($products,);
-        session()->push('products',$request->all());
+        session()->push($request->all(),'products');
 
        }
        dd(session()->get('products'));
