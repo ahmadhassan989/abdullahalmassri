@@ -30,6 +30,7 @@
                 <div class="nav_list"> 
                     <a href="{{route('users.index')}}" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a> 
                     <a href="{{route('product.index')}}" class="nav_link"> <i class="fas fa-store"></i> <span class="nav_name">Store</span> </a> 
+                    <a href="{{route('boxes.index')}}" class="nav_link"> <i class="fas fa-boxes"></i> <span class="nav_name">Boxes</span></a> 
                     <a href="#" class="nav_link"> <i class="fas fa-shopping-bag"></i> <span class="nav_name">Orders</span> </a> 
                     <a href="{{route('maincategory.index')}}" class="nav_link"> <i class="fas fa-layer-group"></i><span class="nav_name">Main Category</span></a> 
                     <a href="{{route('subcategory.index')}}" class="nav_link"> <i class="fas fa-cubes"></i> <span class="nav_name">SubCategory</span></a> 
@@ -45,7 +46,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" >
                     @csrf
                                             
-                  <a href="{{ route('logout') }}" class="nav_link"> <button style="background-color:transparent; border:none"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </button> </a>
+                  <a href="{{ route('logout') }}" class="nav_link"> <button style="background-color:transparent; border:none; color:white"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </button> </a>
                 </form>
         </nav>
     </div>

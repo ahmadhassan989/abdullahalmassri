@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 
 <div class="page-content" style='margin-top:100px'>
     <div class="content">
@@ -50,7 +50,7 @@
                                         <span class="title">Users Count</span>
                                         <!-- To hide validate span add class "hide" -->
                                     </label>
-                                    <input value="{{$promocode->quantity}}" class="form-control" type='number'
+                                    <input value="{{$promocode->total_quantity}}" class="form-control" type='number'
                                         name="quantity" placeholder="Users count can use this Promocode " required>
                                 </div>
                             </div>

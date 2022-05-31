@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 <div class="page-content" style="width:50%; height:fit-content; margin: auto; border-radius:3%">
     <div class="row">
     <div class="col-12"></div>

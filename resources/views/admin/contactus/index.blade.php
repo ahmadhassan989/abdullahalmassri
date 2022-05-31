@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 <style>
 .btn {
     float: right;
@@ -8,11 +8,11 @@
 <div class="page-content" style='margin-top:100px'>
     <div class="content">
         <div class="page-title">
-            <h4>users</h4>
+            <h4>Messages</h4>
         </div>
 
         <div class="page-list">
-            <h5 class="form-group">List Of users</h5>
+            <h5 class="form-group">List Of Messages</h5>
             <div class="table-responsive">
 
 

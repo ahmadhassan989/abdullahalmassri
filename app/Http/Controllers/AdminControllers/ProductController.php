@@ -84,7 +84,7 @@ class ProductController extends Controller
             $img_prod->save();
             $count++;
             }
-        return redirect('/admin/product')->with('success', 'Action has been done successfully!');
+        return redirect('/admin/product');
     
 }
 

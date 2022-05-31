@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 <style>
 .btn {
     float: right;
@@ -44,7 +44,7 @@
                             </td>
                             <td>
                                 <span class="td-data">
-                                    {{$promocode->quantity}}
+                                    {{$promocode->remaining_quantity}}/{{$promocode->total_quantity}}
                                 </span>
                             </td>
                             <td>
@@ -55,11 +55,16 @@
 
                             <td class="td-actions-group">
                                 <div class="actions">
-                                    <a href="{{route('promocodes.edit',$promocode->id)}}" class="table-action-btn"
+                                    <a href="{{route('promocodes.edit',$promocode->code)}}" class="table-action-btn"
                                         title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-
+                                    <form id="logout-form" action="{{ route('checkPromocodeUsage.check',$promocode->code) }}" method="post" >
+                                        @csrf
+                                        <button>send</button>
+                                                                
+                                      {{-- <a href="{{ route('logout') }}" class="nav_link"> <button style="background-color:transparent; border:none; color:white"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </button> </a> --}}
+                                    </form>
 
                                 </div>
                             </td>

@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
+
 <style>
 .btn {
     float: right;

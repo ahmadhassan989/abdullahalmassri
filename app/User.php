@@ -2,13 +2,14 @@
 
 namespace App;
 
+use Gabievi\Promocodes\Models\Promocode;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use  Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,8 +38,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dispatchesEvents = [
+
+        'registeraion' => \App\Events\checkoutWithoutRegisteration::class,
+     
+     ];
+
     public function contactus()
     {
         return $this->hasMany('App\Models\ContactUs', 'contact_us_id');
+    }
+    public function promocodes()
+    {
+        return $this->hasMany(Promocode::class);
     }
 }

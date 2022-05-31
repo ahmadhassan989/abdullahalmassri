@@ -2029,14 +2029,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // props: ['paymentData'],
-  // emits: ['clearPaymentData'],
   data: function data() {
-    return {};
+    return {
+      form: new Form({
+        promocode: "eee"
+      })
+    };
   },
-  methods: {},
-  mounted: function mounted() {}
+  methods: {
+    checkPromocodeUsage: function checkPromocodeUsage() {
+      var _this = this;
+
+      debugger;
+      axios.post("/checkPromocodeUsage").then(function (response) {
+        var attr = document.getElementById("text");
+        attr.innerHTML = response.data.message;
+
+        _this.form.reset();
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -38046,7 +38070,73 @@ var render = function () {
             _c("hr"),
           ]),
           _vm._v(" "),
-          _vm._m(6),
+          _c("div", { staticClass: "col-12 col-sm-4 p-3 proceed form" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _vm._m(8),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function ($event) {
+                    $event.preventDefault()
+                    return _vm.checkPromocodeUsage.apply(null, arguments)
+                  },
+                },
+              },
+              [
+                _c(
+                  "div",
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.promocode,
+                          expression: "promocode",
+                        },
+                      ],
+                      attrs: {
+                        type: "text",
+                        placeholder: "promocode",
+                        name: "promocode",
+                      },
+                      domProps: { value: _vm.promocode },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.promocode = $event.target.value
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("has-error", {
+                      attrs: { form: _vm.form, field: "promocode" },
+                    }),
+                  ],
+                  1
+                ),
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "btn btn-outline-dark", attrs: { href: "/cart" } },
+              [
+                _vm._v(
+                  "\n                        Check out\n                    "
+                ),
+              ]
+            ),
+          ]),
         ]),
       ]),
     ]),
@@ -38071,7 +38161,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-2" }, [
       _c("p", { staticClass: "cartItemQuantity p-1 text-center" }, [
-        _vm._v("1"),
+        _vm._v(
+          "\n                                1\n                            "
+        ),
       ]),
     ])
   },
@@ -38101,7 +38193,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "col-2" }, [
       _c("p", { staticClass: "cartItemQuantity p-1 text-center" }, [
-        _vm._v("1"),
+        _vm._v(
+          "\n                                1\n                            "
+        ),
       ]),
     ])
   },
@@ -38117,42 +38211,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-sm-4 p-3 proceed form" }, [
-      _c("div", { staticClass: "row m-0" }, [
-        _c("div", { staticClass: "col-sm-8 p-0" }, [
-          _c("h6", [_vm._v("Subtotal")]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4 p-0" }, [
-          _c("p", { attrs: { id: "subtotal" } }, [_vm._v("$132.00")]),
-        ]),
+    return _c("div", { staticClass: "row m-0" }, [
+      _c("div", { staticClass: "col-sm-8 p-0" }, [
+        _c("h6", [_vm._v("Subtotal")]),
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row m-0" }, [
-        _c("div", { staticClass: "col-sm-8 p-0" }, [_c("h6", [_vm._v("Tax")])]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4 p-0" }, [
-          _c("p", { attrs: { id: "tax" } }, [_vm._v("$6.40")]),
-        ]),
+      _c("div", { staticClass: "col-sm-4 p-0" }, [
+        _c("p", { attrs: { id: "subtotal" } }, [_vm._v("$132.00")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row m-0" }, [
+      _c("div", { staticClass: "col-sm-8 p-0" }, [_c("h6", [_vm._v("Tax")])]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-sm-4 p-0" }, [
+        _c("p", { attrs: { id: "tax" } }, [_vm._v("$6.40")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row mx-0 mb-2" }, [
+      _c("div", { staticClass: "col-sm-8 p-0 d-inline" }, [
+        _c("h5", [_vm._v("Total")]),
       ]),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("div", { staticClass: "row mx-0 mb-2" }, [
-        _c("div", { staticClass: "col-sm-8 p-0 d-inline" }, [
-          _c("h5", [_vm._v("Total")]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-4 p-0" }, [
-          _c("p", { attrs: { id: "total" } }, [_vm._v("$138.40")]),
-        ]),
+      _c("div", { staticClass: "col-sm-4 p-0" }, [
+        _c("p", { attrs: { id: "total" } }, [_vm._v("$138.40")]),
       ]),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-outline-dark", attrs: { href: "/cart" } },
-        [_vm._v("\n            Check out\n          ")]
-      ),
     ])
   },
 ]

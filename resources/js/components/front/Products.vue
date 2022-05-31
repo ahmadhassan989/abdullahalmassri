@@ -227,31 +227,31 @@
 </template>
 
 <script>
-export default {
-  // props: ['paymentData'],
-  // emits: ['clearPaymentData'],
-  data: () => ({}),
-  props: ['products'],
-  methods: {
-    openProduct() {
-      console.log("xxxxxxxxxxxxxx");
+  export default {
+    // props: ['paymentData'],
+    // emits: ['clearPaymentData'],
+    data: () => ({}),
+    props: ['products'],
+    methods: {
+      openProduct() {
+        console.log("xxxxxxxxxxxxxx");
+          axios
+              .get("/products/product-name")
+              .then((response) => (this.info = response));
+      },
+      addToCart(i){
+        console.log(this.products[i]);
         axios
-            .get("/products/product-name")
-            .then((response) => (this.info = response));
+              .post("/product/add-to-cart",this.products[i])
+              .then((response) => (this.info = response));
+      }
     },
-    addToCart(i){
-      console.log(this.products[i]);
-      axios
-            .post("/product/add-to-cart",this.products[i])
-            .then((response) => (this.info = response));
-    }
-  },
-  mounted() {
-    console.log(this.products)
-  },
-};
+    mounted() {
+      console.log(this.products)
+    },
+  };
 
-// href="/products/asdfasdf"
+  // href="/products/asdfasdf"
 </script>
 
 <style scoped>
