@@ -48,7 +48,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
 
-        $product_slug = Str::slug($request->input('product_name',Str::random(6)));    // Product barcode
+        $product_slug = Str::slug($request->input('product_name','-'));    // Product barcode
         $product_barcode = Str::random(10);
 
 
@@ -64,51 +64,38 @@ class ProductController extends Controller
             'sku'=>$product_barcode,
             'product_unit_id'=>$request->input('product_unit'),
             'product_description'=>$request->input('product_description'),
-            'img_url'=>'default.png',
         ]);
+
         $product->save();
 
-        // $imgs=$request->file('imgs');
-        // $count = 0;
-        if(count($request->file('imgs')) > 0 ) {
+        if($request->file('imgs') ) {
 
             foreach ($request->file('imgs') as $one) {
+
                 $image = new ProductImage();
-                $path = $one->store('/images', $image);
-                $image->img_url = $path;
+
+                $imageName = 'prod-img-'. $one->getClientOriginalName();
+
+                $pathImg = $one->storeAs('public/images/productsImgs', $imageName);
+
+                $img_url = url('/storage/images/productsImgs/'.$imageName);
+                $image->img_url = $img_url ? $img_url: '';
                 $image->product_id = $product->id;
                 $image->save();
+
+
+                // $path = $one->store('/images', $image);
+                // dd($path );
+                // $image->img_url = $path;
+                // $image->save();
                 // $coverUrl = url('/storage/images/courseCoverImg/'.$image);
 
             }
-<<<<<<< HEAD
-        }
-        // foreach($imgs as $img){
-        //     $destination = 'storage/products/'.$product->main_category_id;
-        //     $fileName = $product->product_name.'_'.$count.".".$img->getClientOriginalExtension();
-        //     $path = $img->storeAs('products/'.$product->main_category_id, $fileName);
-
-        //     ///////////////////
-
-
-        //     ///////////////////
-        //     // $img->move($destination, $fileName);
-        //     $img_prod= new ProductImage([
-        //         'product_id' => $product->id,
-        //         'img_url' => $path,
-        //     ]);
-        //     $img_prod->save();
-        //     $count++;
-        //     }
-        return redirect('/admin/product')->with('success', 'Action has been done successfully!');
-
-=======
         return redirect('/admin/product');
-    
->>>>>>> 5f69f542712a1c995a3e035884d7c7bf6fe2a306
+
 }
 
-
+    }
 
     /**
      * Display the specified resource.

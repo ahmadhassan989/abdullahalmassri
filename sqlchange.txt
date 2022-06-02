@@ -1,0 +1,5 @@
+// add phone to users
+ALTER TABLE `meat`.`users`
+ADD COLUMN `phone` VARCHAR(45) NOT NULL AFTER `email`,
+ADD UNIQUE INDEX `phone_UNIQUE` (`phone` ASC);
+======================================================

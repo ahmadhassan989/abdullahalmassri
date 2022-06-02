@@ -46,8 +46,8 @@ class PromocodeController extends Controller
         $expires_in = Carbon::now()->addDays($request->expires_in);
 
         Promocode::create(['code' =>  Str::random(6),
-                            'reward' => $request->reward, 
-                            'remaining_quantity' =>$request->quantity , 
+                            'reward' => $request->reward,
+                            'remaining_quantity' =>$request->quantity ,
                             'total_quantity' => $request->quantity ,
                             'expires_at' => $expires_in ]);
             return redirect()->route('promocodes.index')->with('success', trans('responses.success'));
@@ -114,55 +114,53 @@ class PromocodeController extends Controller
             'promocode_id' => $promocode->id,
             'used_at' => Carbon::now(),
         ]);
-        dd('done');
     }
 
-    public function checkPromocodeUsage($code)
-    {  
-        
-        if (!auth()->check()) {
-            
-           return view('auth.login');
-        }
-
-        if ($promocode = $this->check($code)) {
-
-            $promocode = Promocode::where('code',$code)->first();
-                $promocode->users()->attach(auth()->id(), [
-                    'promocode_id' => $promocode->id,
-                    'used_at' => Carbon::now(),
-                ]);
-            if (!is_null($promocode->remaining_quantity)) {
-                $promocode->remaining_quantity -= 1;
-                $promocode->save();
-            }
-            $total_price = 'total cost';
-            $reward =  $promocode->reward;
-            $price_after_discount = 'total *'.$promocode->reward;
-            return redirect()->route('portal.cart')
-                    ->with(['total_price'=>'total_price' ,
-                            'reward'=>'reward',
-                            'price_after_discount'=>'price_after_discount']);
-    }       
-
-        return redirect()->route('portal.cart')->with('message' , 'Promocode Not Valid');
-    }
- 
-    
-            
-    
-    public function check($code)
+    public function checkPromocodeUsage(Request $request)
     {
-        
-        $promocode = Promocode::where('code',$code)->first();
-        if ($promocode === null || ($promocode->expires_at < Carbon::now()) || $promocode->users()->exists() || $promocode->remaining_quantity === 0) {
-        
-            return false;
-         
+            if (!auth()->check()) {
+
+           return response('notAuth',419);
         }
 
-        return true;
+        $promocode = Promocode::findorfail($request->code);
+
+         // if date now > code expiration
+        // if user used this promo
+        // if code max usage < current
+
+        $data['status'] = true;
+        $data['discount_amount'] = $promocode->reward * 10 ;
+        $data['code_id'] = $promocode->id;
+
+        // $cart = \Session::get('cart');
+        // $cart ['promo_code'] = $data ;
+        // \Session::put('cart', $cart);
+
+        return response($data,200);
+
+
+        // move after payment status is success
+
+            // $promocode->users()->attach(auth()->id(), [
+            //     'promocode_id' => $promocode->id,
+            //     'used_at' => Carbon::now(),
+            // ]);
+            // if (!is_null($promocode->remaining_quantity)) {
+            //     $promocode->remaining_quantity -= 1;
+            //     $promocode->save();
+            // }
+
+
+
+
+
     }
+
+
+
+
+
 
 
 

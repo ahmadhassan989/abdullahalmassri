@@ -5,7 +5,8 @@
 
     <!-- Section-->
     <section class="py-5">
-        <cart></cart>
+
+        <cart :products="{{json_encode($products)}}"></cart>
 
     </section>
     <!-- Footer-->

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promocode extends Model
 {
+    protected $primaryKey = 'code';
     protected $fillable = ['code','reward', 'remaining_quantity', 'total_quantity', 'expires_at'];
 
     protected $casts = [
@@ -31,6 +32,6 @@ class Promocode extends Model
             $builder->where('expires_at', '>=' ,Carbon::now())
             ->where('remaining_quantity' ,'>', 0);
         });
-       
+
     }
 }
