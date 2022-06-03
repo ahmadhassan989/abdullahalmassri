@@ -6,6 +6,8 @@ use App\Models\MainCategory;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+// use Session;
+
 
 class HomeController extends Controller
 {
@@ -26,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::with('mainCategory','subCategory','unit')->get();
+        $products = Product::with('mainCategory','subCategory','unit','productimgs')->get();
         return view('welcome',compact('products'));
     }
 
@@ -36,10 +38,7 @@ class HomeController extends Controller
         return view('portal.product');
     }
 
-    public function cart()
-    {
-        return view('portal.cart');
-    }
+
 
     public function product_by_category()
     {
@@ -47,23 +46,23 @@ class HomeController extends Controller
     }
     public function addToCart(Request $request)
     {
-       
-       if(session()->get('products') == []){
-        session()->put('products',[]);
-        session()->put($request->all(),'products');
+        // \Session::forget('cart');
 
-        // $products=[];
-        //    array_push($products,$request->all());
-        //    $request->session()->put('products',$products);
-       }
-       else{
-        
-        // array_push($products,);
-        session()->push($request->all(),'products');
+        $product = $request->product ;
+        $cart = \Session::get('cart');
+        $cart [$product['id']] = $product ;
 
-       }
-       dd(session()->get('products'));
 
-       
+        \Session::put('cart', $cart);
+        // \Session::flash('success','barang berhasil ditambah ke keranjang!');
+        //dd(Session::get('cart'));
+        return response(\Session::get('cart'));
+
+    }
+    public function cart()
+    {
+        $products = \Session::get('cart') ? \Session::get('cart') : false ;
+
+        return view('portal.cart',['products'=>$products]);
     }
 }

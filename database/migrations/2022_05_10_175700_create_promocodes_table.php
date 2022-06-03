@@ -28,12 +28,12 @@ class CreatePromocodesTable extends Migration
             $table->id();
 
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('promocode_id');
+            $table->string('promocode_code');
 
             $table->timestamp('used_at');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('promocode_id')->references('id')->on('promocodes')->onDelete('cascade');
+            $table->foreign('promocode_code')->references('code')->on('promocodes')->onDelete('cascade');
         });
     }
 

@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Promocode extends Model
 {
+    protected $primaryKey = 'code';
+    protected $foreign_key = 'id';
+    public $incrementing = false;
     protected $fillable = ['code','reward', 'remaining_quantity', 'total_quantity', 'expires_at'];
 
     protected $casts = [
@@ -18,9 +21,7 @@ class Promocode extends Model
 
     public function users()
     {
-        return $this->belongsToMany(config('promocodes.user_model'), config('promocodes.relation_table'),
-        config('promocodes.foreign_pivot_key', 'user_id'), config('promocodes.related_pivot_key', 'user_id'))
-        ->withPivot('used_at');
+        return $this->belongsToMany('App\User');
     }
 
     protected static function boot()
@@ -28,9 +29,8 @@ class Promocode extends Model
         parent::boot();
 
         static::addGlobalScope('validPromocode', function (Builder $builder) {
-            $builder->where('expires_at', '>=' ,Carbon::now())
-            ->where('remaining_quantity' ,'>', 0);
+            $builder->where('expires_at', '>=' ,Carbon::now());
         });
-       
+
     }
 }

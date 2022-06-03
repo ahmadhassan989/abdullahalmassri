@@ -34,11 +34,11 @@
 
     </head>
     <body>
-    
+
 
     <div id="app">
-  
-  
+
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#!">The Meat Master</a>
@@ -105,13 +105,13 @@
                 </div>
             </div>
         </nav>
-      
+
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                
+
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -125,7 +125,7 @@
                                 </li>
                             @endif
                         @else
-                            
+
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
@@ -143,14 +143,14 @@
                                         </form>
                                     </div>
                                 </li>
-                           
+
                         @endguest
                     </ul>
                 </div>
             </div>
         </nav> --}}
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
         <footer class="py-5 bg-dark">

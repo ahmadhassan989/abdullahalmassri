@@ -8,45 +8,54 @@
         justify-content-center
       "
     >
-      <div v-for="(item, index) in products" :key="index" class="col mb-5" @click="openProduct">
-
-        <a class="card h-100" >
+      <div
+        v-for="(item, index) in products"
+        :key="index"
+        class="col mb-5"
+        @click="openProduct"
+      >
+        <a class="card h-100">
           <!-- Product image-->
-          <img class="card-img-top" :src="'/images/siteImages/02.jpg'" alt="..." />
+          <img
+            class="card-img-top"
+            :src="item.productimgs[0].img_url"
+            alt="..."
+          />
           <!-- Product details-->
           <div class="card-body p-4">
             <div class="text-center">
-
-              <h5 class="fw-bolder">{{item.product_name}}</h5>
+              <h5 class="fw-bolder">{{ item.product_name }}</h5>
               <!-- Product price-->
-              ${{item.price }}/ {{item.unit.unit}}
+              ${{ item.price }}/ {{ item.unit.unit }}
             </div>
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-              <a class="btn btn-outline-dark mt-auto" @click="addToCart(index)">Add To Cart</a>
+              <a class="btn btn-outline-dark mt-auto" @click="addToCart(index)"
+                >Add To Cart</a
+              >
             </div>
           </div>
         </a>
       </div>
-     <!-- <div class="col mb-5">
+      <!-- <div class="col mb-5">
         <a class="card h-100" href="/products/asdfasdf">
-          
+
           <div
             class="badge bg-dark text-white position-absolute"
             style="top: 0.5rem; right: 0.5rem"
           >
             Sale
           </div>
-          
+
           <img class="card-img-top" :src="'/images/siteImages/01.jpg'" alt="..." />
-         
+
           <div class="card-body p-4">
             <div class="text-center">
-              
+
               <h5 class="fw-bolder">Special Item</h5>
-              
+
               <div
                 class="d-flex justify-content-center small text-warning mb-2"
               >
@@ -219,7 +228,7 @@
             <div class="text-center">
               <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
             </div>
-           </div> 
+           </div>
         </div>
       </div>-->
     </div>
@@ -227,31 +236,33 @@
 </template>
 
 <script>
-  export default {
-    // props: ['paymentData'],
-    // emits: ['clearPaymentData'],
-    data: () => ({}),
-    props: ['products'],
-    methods: {
-      openProduct() {
-        console.log("xxxxxxxxxxxxxx");
-          axios
-              .get("/products/product-name")
-              .then((response) => (this.info = response));
-      },
-      addToCart(i){
-        console.log(this.products[i]);
-        axios
-              .post("/product/add-to-cart",this.products[i])
-              .then((response) => (this.info = response));
+export default {
+  // props: ['paymentData'],
+  // emits: ['clearPaymentData'],
+  data: () => ({}),
+  props: ["products"],
+  methods: {
+    openProduct() {
+      console.log("xxxxxxxxxxxxxx");
+      axios
+        .get("/products/product-name")
+        .then((response) => (this.info = response));
+    },
+    addToCart(i) {
+      console.log(this.products[i]);
+      const Obj = {product : this.products[i]
       }
+      axios
+        .post("/product/add-to-cart",  Obj )
+        .then((response) => (this.info = response));
     },
-    mounted() {
-      console.log(this.products)
-    },
-  };
+  },
+  mounted() {
+    console.log(this.products);
+  },
+};
 
-  // href="/products/asdfasdf"
+// href="/products/asdfasdf"
 </script>
 
 <style scoped>

@@ -51,7 +51,7 @@ class User extends Authenticatable
     }
     public function promocodes()
     {
-        return $this->hasMany(Promocode::class);
+        return $this->hasMany(Promocode::class , 'promocode_id');
     }
     protected static function boot()
     {

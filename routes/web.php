@@ -37,7 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','IsAdmin']], function
     Route::resource('maincategory' , 'AdminControllers\MainCategoryController');
     Route::resource('subcategory' , 'AdminControllers\SubCategoryController');
     Route::resource('product' , 'AdminControllers\ProductController');
-  
+
     Route::resource('unit' , 'AdminControllers\UnitController');
     Route::get('api/subCategories', function(Request $request) {
         $input = $request->input('option');
@@ -53,7 +53,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','IsAdmin']], function
         if($input == '0'){
         return $input;
         }
-        
+
         $subCategory = SubCategory::find($input);
         $products = $subCategory->products();
         return Response::json($products->get(['id','product_name']));
@@ -66,4 +66,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','IsAdmin']], function
     Route::resource('imagebox','AdminControllers\ImageBoxController');
 });
 
-Route::post('/checkPromocodeUsage/{id}', 'AdminControllers\PromocodeController@checkPromocodeUsage')->name('checkPromocodeUsage.check');
+Route::post('/checkPromocodeUsage', 'AdminControllers\PromocodeController@checkPromocodeUsage')->name('checkPromocodeUsage.check');

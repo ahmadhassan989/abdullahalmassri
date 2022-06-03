@@ -35,6 +35,7 @@
                         @foreach($promocodes as $promocode)
                         <tr>
                             <td>
+                                
                                 <span class="td-data"> {{$promocode->code}} </span>
                             </td>
                             <td>
