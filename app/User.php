@@ -4,6 +4,7 @@ namespace App;
 
 use Gabievi\Promocodes\Models\Promocode;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -51,5 +52,14 @@ class User extends Authenticatable
     public function promocodes()
     {
         return $this->hasMany(Promocode::class);
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('activeUser', function (Builder $builder) {
+            $builder->where('status',1);
+        });
+       
     }
 }

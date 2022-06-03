@@ -75,7 +75,7 @@
                                                                         {{ csrf_field() }}    
                                                                         <input name="_method" type="hidden" value="DELETE"> 
                                                                         <strong>Confirm action</strong>
-                                                                        <p>Are you sure you want to delete Box?</p>                                                        
+                                                                        <p>Are you sure you want to delete this Box?</p>                                                        
                                                                         <button  class="btn btn-danger">Sure</button>  
                                                                     </form>                                             
                                                                 </div>

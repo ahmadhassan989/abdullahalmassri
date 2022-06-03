@@ -105,11 +105,15 @@ class BoxController extends Controller
      * @param  \App\Models\Box  $box
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Box $box)
     {
         $products = Product::all();
-        $box = Box::where('id', $id)->first();
-        return view('admin.boxes.show',compact(['box','products']));
+       
+        
+        $boxproducts =($box->products()->get());
+      
+
+        return view('admin.boxes.show',compact(['box','products' , 'boxproducts']));
     }
 
     /**
@@ -121,11 +125,17 @@ class BoxController extends Controller
      */
     public function update(Request $request, Box $box)
     {
-    return($box->with('products')->get());
+        $box->update([
+            'title'=> $request->box_title,
+            'description'=> $request->box_description,
+            'price'=> $request->price,
+            'status'=> $request->status,
 
+        ]);
+        
         $products = $request->input('product_ids');
         foreach($products as $product){
-            ProductBox::create([
+            $box->products->where('product_id',$product)->first()->update([
                 'box_id' => $box->id,
                 'product_id' => $product
             ]);
@@ -133,20 +143,23 @@ class BoxController extends Controller
 
 
         $imgs=$request->file('imgs');
-        $count = 0;
-        foreach($imgs as $img){
-            $destination = 'storage/boxes/';
-            $fileName = $box->id.'_'.$count.".".$img->getClientOriginalExtension();
-            $path = $img->storeAs('boxes/', $fileName);
 
-            $img->move($destination, $fileName);
-            $img_box= new ImageBox([
-                'box_id' => $box->id,
-                'img_url' => $path,
-            ]);
-            $img_box->save();
-            $count++;
-            }
+        if($imgs){ // $imgs !!= null
+            $count = 0;
+            foreach($imgs as $img){
+                $destination = 'storage/boxes/';
+                $fileName = $box->id.'_'.$count.".".$img->getClientOriginalExtension();
+                $path = $img->storeAs('boxes/', $fileName);
+
+                $img->move($destination, $fileName);
+                $img_box= new ImageBox([
+                    'box_id' => $box->id,
+                    'img_url' => $path,
+                ]);
+                $img_box->save();
+                $count++;
+                }
+            }//$imgs !!= null
         return redirect()->route('boxes.index');
     }
     
@@ -157,8 +170,10 @@ class BoxController extends Controller
      * @param  \App\Models\Box  $box
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Box $box)
+    public function destroy($id)
     {
-        //
+        Box::destroy($id);
+        return redirect()->route('boxes.index');
+
     }
 }

@@ -11,8 +11,17 @@
           -> total price 
           one box contains many products.
           one product can bb in multi boxes 
-          ==> many to many 
-          ==> 
-          
+          ==> many to many. 
+
+
+          // but code => primary key
+          // 
+          // cart => array session to save data
+                        ==> show this array in cart view
+                        ==> apply promocode:
+                               --> handle error in cart vue page in error element
+          // checkout button    =>
+                                => 
+    }
 
 

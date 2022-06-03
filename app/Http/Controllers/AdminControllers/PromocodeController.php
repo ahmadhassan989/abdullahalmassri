@@ -104,7 +104,8 @@ class PromocodeController extends Controller
      */
     public function destroy($id)
     {
-
+        Promocode::destroy($id);
+        return redirect()->route('promocodes.index');
     }
 
     public function apply($code)

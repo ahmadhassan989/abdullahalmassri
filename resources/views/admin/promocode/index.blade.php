@@ -59,12 +59,25 @@
                                         title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    <form id="logout-form" action="{{ route('checkPromocodeUsage.check',$promocode->code) }}" method="post" >
-                                        @csrf
-                                        <button>send</button>
-                                                                
-                                      {{-- <a href="{{ route('logout') }}" class="nav_link"> <button style="background-color:transparent; border:none; color:white"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </button> </a> --}}
-                                    </form>
+                                    <button style="margin: 0 -45px;" class="btn table-action-btn text-danger Click-here" ><i class="fas fa-trash-alt"></i></button>
+                                    <!-- pop-up -->
+                                    <div class="custom-model-main">
+                                            <div class="custom-model-inner">        
+                                            <div class="close-btn">×</div>
+                                                <div class="custom-model-wrap">
+                                                    <div class="pop-up-content-wrap">
+                                                        <form action="{{route('promocodes.destroy',$promocode->id)}}" method="POST" enctype="multipart/form-data">
+                                                            {{ csrf_field() }}    
+                                                            <input name="_method" type="hidden" value="DELETE"> 
+                                                            <strong>Confirm action</strong>
+                                                            <p>Are you sure you want to delete this promocode?</p>                                                        
+                                                            <button  class="btn btn-danger">Sure</button>  
+                                                        </form>                                             
+                                                    </div>
+                                                </div>
+                                            </div>  
+                                            <div class="bg-overlay"></div>
+                                    </div>
 
                                 </div>
                             </td>

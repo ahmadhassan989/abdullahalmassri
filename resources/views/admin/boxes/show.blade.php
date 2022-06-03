@@ -5,7 +5,19 @@
         <div class="page-title">
             <h4> {{$box->title}}</h4>
         </div>
-        <!-- Add and delete form  -->
+        <div style="width:50% ;margin: auto;">
+            <?php ( $count = count($box->boxImages))?>
+            @foreach($box->boxImages as $img)
+                   <form action="{{route('imagebox.destroy',$img->id)}}"  method="POST"
+                    enctype="multipart/form-data" style="margin:15px; width:<?php echo(90/($count+1))?>%; display:inline-block">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="DELETE">
+   
+                    <img style="width:100%;" src="{{asset('storage/'.$img->img_url)}}" alt="Product_img">
+                       <button style="position: absolute;"> <i  class ="fas fa-times"></i> </button>
+                    </form>
+            @endforeach
+        </div>
         <div class="page=form">
             <fieldset class="fieldset">
 
@@ -18,9 +30,14 @@
 
                     <div class="fieldset-body">
                         <div class="row">
-
+                            <div class="col-md-2 form-group">
+                                <select class="form-control" name="status" id="status">
+                                    <option @if($box->status == "1") selected @endif value="1"><button>Active</button></option>
+                                    <option @if($box->status == "0") selected @endif value="0"><button>Deactive</button></option>
+                                </select>
+                            </div>
                             <div class="col-12"></div>
-                 
+                           
                                 <div class="col-md-6 form-group">
                                     <div class="control-container">
                                         <label class="control-lable">
@@ -62,7 +79,7 @@
                                             <select multiple id="product_0"  name="product_ids[]" class="form-control mt-2" required>
                                                 <option value="">Please select a Product</option>
                                                 @foreach($products as $product)
-                                                    <option  value="{{$product->id}}">{{$product->product_name}}</option>
+                                                    <option @foreach($boxproducts as $boxproduct) @if($boxproduct->product_id === $product->id ) selected @endif @endforeach value="{{$product->id}}">{{$product->product_name}}  </option>
                                                 @endforeach
                                             </select>
                                         </div>
